@@ -32,12 +32,12 @@ class GameDetail < ApplicationRecord
                 vQ4Score: game["vTeam"]["score"]["linescore"][3],
                 hTeamFullName: game["hTeam"]["fullName"],
                 hTeamLogo: game["hTeam"]["logo"],
-                hTeamId: game["vTeam"]["teamId"],
+                hTeamId: game["hTeam"]["teamId"],
                 hPoints: game["hTeam"]["score"]["points"],
-                hQ1Score: game["vTeam"]["score"]["linescore"][0],
-                hQ2Score: game["vTeam"]["score"]["linescore"][1],
-                hQ3Score: game["vTeam"]["score"]["linescore"][2],
-                hQ4Score: game["vTeam"]["score"]["linescore"][3]
+                hQ1Score: game["hTeam"]["score"]["linescore"][0],
+                hQ2Score: game["hTeam"]["score"]["linescore"][1],
+                hQ3Score: game["hTeam"]["score"]["linescore"][2],
+                hQ4Score: game["hTeam"]["score"]["linescore"][3]
             )
             
             if new_game

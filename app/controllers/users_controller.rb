@@ -2,7 +2,6 @@ class UsersController < ApplicationController
     wrap_parameters :user, include: [:username, :password, :account_balance, :firstName, :lastName, :dob, :email]
 
     def create
-      byebug
       new_user = User.new(user_params)
       if new_user.save
           render json: new_user

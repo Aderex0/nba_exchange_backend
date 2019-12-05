@@ -6,11 +6,11 @@ class UserPlayer < ApplicationRecord
 
     def self.update_bought_player_quantity_and_value(qtyBought, player)
         
-        if qtyBought + player.qtyBought - player.qtySold > 1500
+        if qtyBought + player.qtyBought - player.qtySold > 400
             if player.qtyBought.ceil(-2) <= qtyBought + player.qtyBought
                 player.update(
-                sell: (player.sell + 0.01).round(2),
-                buy: (player.buy + 0.03).round(2),
+                sell: (player.sell + (0.01 * (qtyBought.ceil(-2) / 100))).round(2),
+                buy: (player.buy + (0.03 * (qtyBought.ceil(-2) / 100))).round(2),
                 qtyBought: player.qtyBought + qtyBought
                 )
             else
@@ -18,11 +18,11 @@ class UserPlayer < ApplicationRecord
                     qtyBought: player.qtyBought + qtyBought
                 )
             end
-        elsif qtyBought + player.qtyBought - player.qtySold > 1000
+        elsif qtyBought + player.qtyBought - player.qtySold > 200
             if player.qtyBought.ceil(-2) <= qtyBought + player.qtyBought
                 player.update(
-                sell: (player.sell + 0.01).round(2),
-                buy: (player.buy + 0.02).round(2),
+                sell: (player.sell + (0.01 * (qtyBought.ceil(-2) / 100))).round(2),
+                buy: (player.buy + (0.02 * (qtyBought.ceil(-2) / 100))).round(2),
                 qtyBought: player.qtyBought + qtyBought
                 )
             else
@@ -33,8 +33,8 @@ class UserPlayer < ApplicationRecord
         else
             if player.qtyBought.ceil(-2) <= qtyBought + player.qtyBought
                 player.update(
-                sell: (player.sell + 0.01).round(2),
-                buy: (player.buy + 0.01).round(2),
+                sell: (player.sell + (0.01 * (qtyBought.ceil(-2) / 100))).round(2),
+                buy: (player.buy + (0.01 * (qtyBought.ceil(-2) / 100))).round(2),
                 qtyBought: player.qtyBought + qtyBought
                 )
             else
@@ -47,11 +47,11 @@ class UserPlayer < ApplicationRecord
 
     def self.update_sold_player_quantity_and_value(qtySold, player)
 
-        if player.qtyBought - qtySold + player.qtySold > 1500
+        if player.qtyBought - qtySold + player.qtySold > 400
             if (player.qtySold+1).ceil(-2) <= qtySold + player.qtySold
                 player.update(
-                sell: (player.sell - 0.01).round(2),
-                buy: (player.buy - 0.03).round(2),
+                sell: (player.sell - (0.01 * (qtySold.ceil(-2) / 100))).round(2),
+                buy: (player.buy - (0.03 * (qtySold.ceil(-2) / 100))).round(2),
                 qtySold: player.qtySold + qtySold
                 )
             else
@@ -59,11 +59,11 @@ class UserPlayer < ApplicationRecord
                     qtySold: player.qtySold + qtySold
                 )
             end
-        elsif player.qtyBought - qtySold + player.qtySold > 1000
+        elsif player.qtyBought - qtySold + player.qtySold > 200
             if (player.qtySold+1).ceil(-2) <= qtySold + player.qtySold
                 player.update(
-                sell: (player.sell - 0.01).round(2),
-                buy: (player.buy - 0.02).round(2),
+                sell: (player.sell - (0.01 * (qtySold.ceil(-2) / 100))).round(2),
+                buy: (player.buy - (0.02 * (qtySold.ceil(-2) / 100))).round(2),
                 qtySold: player.qtySold + qtySold
                 )
             else
@@ -74,8 +74,8 @@ class UserPlayer < ApplicationRecord
         else
             if (player.qtySold+1).ceil(-2) <= qtySold + player.qtySold
                 player.update(
-                sell: (player.sell - 0.01).round(2),
-                buy: (player.buy - 0.01).round(2),
+                sell: (player.sell - (0.01 * (qtySold.ceil(-2) / 100))).round(2),
+                buy: (player.buy - (0.01 * (qtySold.ceil(-2) / 100))).round(2),
                 qtySold: player.qtySold + qtySold
                 )
             else
