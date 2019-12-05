@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
   def index
-    players = Player.filter_players_by_minutes
+    players = Player.filter_players_and_add_new_players
 
     render json: players
     # PlayerSerializer.new(players).to_serialized_json

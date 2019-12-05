@@ -10,10 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_26_144227) do
+ActiveRecord::Schema.define(version: 2019_12_04_221041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "game_details", force: :cascade do |t|
+    t.string "statusGame"
+    t.string "vTeamFullName"
+    t.string "vTeamLogo"
+    t.integer "vTeamId"
+    t.integer "vPoints"
+    t.integer "vQ1Score"
+    t.integer "vQ2Score"
+    t.integer "vQ3Score"
+    t.integer "vQ4Score"
+    t.string "hTeamFullName"
+    t.string "hTeamLogo"
+    t.integer "hTeamId"
+    t.integer "hPoints"
+    t.integer "hQ1Score"
+    t.integer "hQ2Score"
+    t.integer "hQ3Score"
+    t.integer "hQ4Score"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "gameId"
+  end
 
   create_table "games", force: :cascade do |t|
     t.integer "gameId"
@@ -26,6 +49,14 @@ ActiveRecord::Schema.define(version: 2019_11_26_144227) do
     t.integer "hTeamId"
     t.string "hTeamShortName"
     t.string "startTime"
+  end
+
+  create_table "historical_prices", force: :cascade do |t|
+    t.integer "playerId"
+    t.date "date"
+    t.float "buy"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "player_averages", force: :cascade do |t|
@@ -69,6 +100,23 @@ ActiveRecord::Schema.define(version: 2019_11_26_144227) do
     t.integer "qtySold"
     t.float "sell"
     t.float "buy"
+  end
+
+  create_table "standings", force: :cascade do |t|
+    t.integer "teamId"
+    t.integer "win"
+    t.integer "loss"
+    t.string "conference"
+    t.integer "rank"
+    t.float "winP"
+    t.float "lossP"
+    t.integer "winStreak"
+    t.integer "gamesPlayed"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "shortName"
+    t.string "teamName"
+    t.string "teamLogo"
   end
 
   create_table "statistics", force: :cascade do |t|

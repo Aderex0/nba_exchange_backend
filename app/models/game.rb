@@ -2,6 +2,7 @@ require 'unirest'
 require 'byebug'
 
 class Game < ApplicationRecord
+    belongs_to :game_details, optional: true, foreign_key: 'gameId', primary_key: "gameId"
     has_many :statistics, primary_key: "gameId", foreign_key: "gameId"
 
     #Create new game entries into the database
@@ -67,5 +68,6 @@ class Game < ApplicationRecord
                 "X-RapidAPI-Host" => "api-nba-v1.p.rapidapi.com",
                 "X-RapidAPI-Key" => "643c94eea2msh53636626512870fp1c3810jsnfef21a3c2700"
         }
+        
     end
 end

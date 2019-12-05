@@ -2,6 +2,7 @@ require 'unirest'
 
 class Team < ApplicationRecord
     has_many :players, primary_key: "teamId", foreign_key: "teamId"
+    belongs_to :standing, optional: true, primary_key: "teamId", foreign_key: "teamId"
 
     #Only to be ran in news of NBA team changes
     def self.create_update_or_delete_team

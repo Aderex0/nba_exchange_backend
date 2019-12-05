@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  teamId: 1
+  win: 1
+  loss: 1
+  conference: MyString
+  rank: 1
+  winP: 1.5
+  lossP: 1.5
+  winStreak: 1
+  gamesPlayerd: 1
+
+two:
+  teamId: 1
+  win: 1
+  loss: 1
+  conference: MyString
+  rank: 1
+  winP: 1.5
+  lossP: 1.5
+  winStreak: 1
+  gamesPlayerd: 1

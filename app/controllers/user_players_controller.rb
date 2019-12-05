@@ -6,7 +6,7 @@ class UserPlayersController < ApplicationController
     
         user = User.find(params[:user_id])
         user.update(
-          account_balance: (user.account_balance - (params[:price] * params[:qty].to_i).round(2))
+          account_balance: (user.account_balance - (params[:price] * params[:qty].to_i).round(2)).round(2)
         )
     
         UserPlayer.create(
@@ -15,6 +15,8 @@ class UserPlayersController < ApplicationController
           qtyOwned: params[:qty].to_i,
           boughtPrice: params[:price]
         )
+
+        render json: { qtyOwned: params[:qty].to_i, boughtPrice: params[:price], firstName: player.firstName, lastName: player.lastName, account_balance: user.account_balance.round(2) }
       end
 
       def sell_player
@@ -23,7 +25,7 @@ class UserPlayersController < ApplicationController
     
         user = User.find(params[:user_id])
         user.update(
-          account_balance: (user.account_balance + (params[:price] * params[:qty].to_i).round(2))
+          account_balance: (user.account_balance + (params[:price] * params[:qty].to_i).round(2)).round(2)
         )
 
         owned_player = UserPlayer.find(params[:transaction_id])

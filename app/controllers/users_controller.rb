@@ -1,4 +1,15 @@
 class UsersController < ApplicationController
+    wrap_parameters :user, include: [:username, :password, :account_balance, :firstName, :lastName, :dob, :email]
+
+    def create
+      byebug
+      new_user = User.new(user_params)
+      if new_user.save
+          render json: new_user
+      else
+          render json: @Trend.errors, status: :unprocessable_entity
+      end
+    end
 
     def login
         @user = User.find_by(username: params[:username])
@@ -17,5 +28,11 @@ class UsersController < ApplicationController
           render json: { error: 'Unable to validate user.' }, status: 401
         end
       end
+
+    private
+
+    def user_params
+        params.require(:user).permit(:username, :password, :account_balance, :firstName, :lastName, :dob, :email)
+    end
       
 end

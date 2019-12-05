@@ -7,19 +7,36 @@ class Player < ApplicationRecord
     has_many :statistics, primary_key: "playerId", foreign_key: "playerId"
     has_many :user_players
     has_many :users, through: :user_players, primary_key: "playerId", foreign_key: "playerId"
+    has_many :historical_prices, primary_key: "playerId", foreign_key: "playerId"
 
-    def self.filter_players_by_minutes
-        active_players = []
+    #filters players by minutes and any new players get a price and spread assigned
 
-        players = PlayerAverage.where.not(min: "NaN").where("min > 20")
-        players.each {|player| active_players << Player.find_by(playerId: player.playerId)}
+    def self.filter_players_and_add_new_players
+        active_players = PlayerAverage.where.not(min: "NaN").where("min > 20").map{|player_average| player_average.player}
 
         active_players.each do |player|
             if player.buy <= 0.00
+                if player.player_average.points < 10.0
                 player.update(
-                    buy: 0.02,
-                    sell: 0.01
+                    buy: (player.player_average.points.round(0) * 0.01).round(2),
+                    sell: (player.player_average.points.round(0) * 0.01 - 0.01).round(2)
                 )
+                elsif player.player_average.points < 20.0
+                    player.update(
+                        buy: (player.player_average.points.round(0) * 0.01).round(2),
+                        sell: (player.player_average.points.round(0) * 0.01 - 0.02).round(2)
+                    )
+                elsif player.player_average.points < 30.0
+                    player.update(
+                        buy: (player.player_average.points.round(0) * 0.01).round(2),
+                        sell: (player.player_average.points.round(0) * 0.01 - 0.03).round(2)
+                    )
+                else
+                    player.update(
+                        buy: (player.player_average.points.round(0) * 0.01).round(2),
+                        sell: (player.player_average.points.round(0) * 0.01 - 0.04).round(2)
+                    )
+                end      
             end
         end
         
@@ -67,6 +84,7 @@ class Player < ApplicationRecord
         players = []
 
         self.fetch_players.body["api"]["players"].each do |player|
+            byebug unless player["playerId"] != "2110"
             if player["leagues"]["standard"]["active"] == "1" && player["startNba"] != "0"
                 players.push(player)
             end
@@ -82,5 +100,36 @@ class Player < ApplicationRecord
                 "X-RapidAPI-Host" => "api-nba-v1.p.rapidapi.com",
                 "X-RapidAPI-Key" => "643c94eea2msh53636626512870fp1c3810jsnfef21a3c2700"
         }
+    end
+
+    private
+
+    #help to set player values at the begining
+    def self.player_value_change
+        players = Player.filter_players_and_add_new_players
+        
+        players.each do |player|
+                if player.player_average.points < 10.0
+                    player.update(
+                        buy: (player.player_average.points.round(0) * 0.01).round(2),
+                        sell: (player.player_average.points.round(0) * 0.01 - 0.01).round(2)
+                    )
+                elsif player.player_average.points < 20.0
+                        player.update(
+                            buy: (player.player_average.points.round(0) * 0.01).round(2),
+                            sell: (player.player_average.points.round(0) * 0.01 - 0.02).round(2)
+                        )
+                elsif player.player_average.points < 30.0
+                        player.update(
+                            buy: (player.player_average.points.round(0) * 0.01).round(2),
+                            sell: (player.player_average.points.round(0) * 0.01 - 0.03).round(2)
+                        )
+                else
+                        player.update(
+                            buy: (player.player_average.points.round(0) * 0.01).round(2),
+                            sell: (player.player_average.points.round(0) * 0.01 - 0.04).round(2)
+                        )
+                end
+        end
     end
 end
