@@ -44,8 +44,8 @@ class Standing < ApplicationRecord
     def self.get_standings_from_api
         response = Unirest.get "https://api-nba-v1.p.rapidapi.com/standings/standard/2019",
             headers:{
-                "X-RapidAPI-Host" => "api-nba-v1.p.rapidapi.com",
-                "X-RapidAPI-Key" => "643c94eea2msh53636626512870fp1c3810jsnfef21a3c2700"
+                "X-RapidAPI-Host" => "key",
+                "X-RapidAPI-Key" => "key"
         }
     end
 end
