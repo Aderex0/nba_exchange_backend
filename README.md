@@ -1,25 +1,24 @@
-# README
+# NBA Exchange backend
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+NBA exchange backend utilises Ruby on Rails, postgreSQL, using API-NBA to pull NBA data into database on daily basis to update player prices, statistics, games and scores. Features algorithims that calculate player averages, player prices, divident pay to users. 
 
-Things you may want to cover:
+## Build with
 
-* Ruby version
+- Ruby on Rails
+- API
+- bcrypt
+- JWT
+- MVC
+- API
+- Unirest
 
-* System dependencies
+## Features
 
-* Configuration
+- Authorization and authentication
+- Sorting profile
+- Custom Serializers
 
-* Database creation
+## NBA Exchange frontend
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# nba_exchange_backend
+For more information about the project visit the frontend page;
+https://github.com/Aderex0/nba_exchange_frontend
